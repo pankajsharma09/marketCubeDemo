@@ -1,5 +1,6 @@
 const User =require( '../../models/user.model');
 const Mutation= {
+    //save the user
     addUser: async (_, args) => {
         try{
             console.log(args);
