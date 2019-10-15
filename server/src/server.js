@@ -1,11 +1,13 @@
 const express =require('express');
 const http = require('http');
 const { ApolloServer,makeExecutableSchema} =  require('apollo-server-express');
+const dotenv = require('dotenv');
+dotenv.config();
 const {importSchema} = require('graphql-import');
-const configuration =require( './config/database');
+//const configuration =require( './config/database');
 const schema = require('./index');
 
-const PORT = configuration.port || 9002;
+const PORT = process.env.PORT || 9002;
 
 
 const server = new ApolloServer({
@@ -20,5 +22,5 @@ server.installSubscriptionHandlers(httpServer);
 
 httpServer.listen({ port: PORT }, () => {
  console.log(` Server ready at http://localhost:${PORT}${server.graphqlPath}`)
- console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
+//  console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
 });

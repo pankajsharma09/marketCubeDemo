@@ -2,7 +2,7 @@
 type Query {
     test : User
 }
-
-    type Mutation{
-        addUser(email:String!,password:String!):User
-    }
+type Mutation{
+    addUser(email:String!,password:String!):User
+    userAuthenticate(email:String!,password:String!): User
+}
