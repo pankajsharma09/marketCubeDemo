@@ -1,6 +1,6 @@
-import  { Query as userQuery,
-    Mutation as UserMutation
-} from './user/'
+const  { Query : userQuery,
+    Mutation : UserMutation
+} =require( './user');
 
 const resolvers = {
     Query : {
@@ -11,4 +11,4 @@ const resolvers = {
     },
 }
 
-export default resolvers;
+module.exports= resolvers;

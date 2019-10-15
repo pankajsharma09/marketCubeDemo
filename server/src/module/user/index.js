@@ -1,7 +1,7 @@
-import { Query } from './query';
-import Mutation from './mutation';
+const { Query } =require( './query');
+const Mutation =require( './mutation');
 
-export  {
+module.exports=  {
     Query,
-    Mutation,
+    Mutation
 };
