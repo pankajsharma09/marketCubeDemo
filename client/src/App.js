@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Link, Route, Redirect } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { AppProvider, Frame, TopBar, Page } from "@shopify/polaris";
+import en from '@shopify/polaris/locales/en.json';
+import "@shopify/polaris/styles.css";
+
+import Login from "./user/login"
+
+const theme = {
+	colors: {
+		topBar: {
+			background: "#36454f"
+		}
+	},
+	logo: {
+		width: 200,
+		topBarSource:
+			"images/logo_and_text.png",
+		contextualSaveBarSource:
+			"images/logo_and_text.png",
+		url: "/",
+		accessibilityLabel: "Jaded Pixel"
+	}
+};
+
+const topBarMarkup = <TopBar />;
+
+function App(props) {
+	return (
+		<AppProvider
+			theme={theme}
+			i18n={en}
+		>
+			<Frame topBar={topBarMarkup} >
+				<Page>
+					<Router>
+						<Route exact path="/" render={(props) => <Redirect to="/login" />} />
+						<Route path="/login" component={Login} />
+						{/* <Route path="/register" component={Register} />
+                    <Route path="/user-list" component={UserList} /> */}
+					</Router>
+				</Page>
+			</Frame>
+		</AppProvider>
+	);
 }
 
 export default App;
