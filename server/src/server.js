@@ -1,13 +1,24 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const express =require('express');
+const http = require('http');
+const { ApolloServer,makeExecutableSchema} =  require('apollo-server-express');
+const {importSchema} = require('graphql-import');
+const configuration =require( './config/database');
+const schema = require('./index');
 
-const url = 'mongodb://localhost:27017/reactusers';
+const PORT = configuration.port || 9002;
 
-// mongoose.connect(url, { useNewUrlParser: true, useCreateIndex: true });
-// mongoose.connection.once('open', () => console.log(`Connected to mongo at ${url}`),
-// err => { console.log('Can not connect to the database'+ err)});
 
-mongoose.connect(url, { useNewUrlParser: true, useCreateIndex: true,useUnifiedTopology: true }).then(
-  () => {console.log('Database is connected') },
-  err => { console.log('Can not connect to the database'+ err)}
-);
+const server = new ApolloServer({
+   schema:makeExecutableSchema(schema)
+
+});
+
+const app = express();
+server.applyMiddleware({ app });
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen({ port: PORT }, () => {
+ console.log(` Server ready at http://localhost:${PORT}${server.graphqlPath}`)
+ console.log(`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`)
+});

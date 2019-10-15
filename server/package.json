@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon -e js,graphql  --exec babel-node src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -12,13 +12,15 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.5.5",
     "apollo-datasource-rest": "^0.6.1",
+    "apollo-server-core": "^2.9.6",
     "apollo-server-express": "^2.8.1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "graphql": "^14.4.2",
     "graphql-import": "^0.7.1",
     "merge-graphql-schemas": "^1.7.0",
-    "mongoose": "^5.7.1"
+    "mongoose": "^5.7.1",
+    "bcrypt": "^3.0.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
