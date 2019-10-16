@@ -1,5 +1,6 @@
 const  { Query : userQuery,
-    Mutation : UserMutation
+    Mutation : UserMutation,
+    Subscription: userSubscription
 } =require( './user');
 
 const resolvers = {
@@ -9,6 +10,9 @@ const resolvers = {
     Mutation : {
     ...UserMutation
     },
+    Subscription: {
+        ...userSubscription
+    }
 }
 
 module.exports= resolvers;

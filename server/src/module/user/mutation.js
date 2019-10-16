@@ -1,14 +1,19 @@
 const User =require( '../../models/user.model');
+
 const bcrypt = require('bcrypt');
+
+const {USER_CREATED, pubsub} = require('../../subscription');
+
 const Mutation= {
     //save the user
     addUser: async (_, args) => {
         try{
             console.log(args);
-            let res = await User.create(args)
+            let res = await User.create(args);
+            await pubsub.publish(USER_CREATED, { newUserCreated: res });
             return res;
         }
-        catch(error){
+        catch(e){
             return e.message;
         }
 
@@ -28,7 +33,7 @@ const Mutation= {
             if(!passwordIsTrue){
                 throw new Error('password not matched');
             }
-        }
+        }  
         return {'user':userDetail[0]}
     }
 }

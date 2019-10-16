@@ -9,6 +9,7 @@ const schema = require('./index');
 
 const PORT = process.env.PORT || 9002;
 
+const mongoose = require('./config/database');
 
 const server = new ApolloServer({
    schema:makeExecutableSchema(schema)
