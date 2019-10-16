@@ -1,5 +1,6 @@
 type User{
     email:String,
     password: String,
-    isVendor:Boolean
+    isVendor:Boolean,
+    response:String
 }

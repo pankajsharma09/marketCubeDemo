@@ -19,22 +19,27 @@ const Mutation= {
 
     },
     userAuthenticate : async(parent, args, context, info) => {
-        let email = args.email;
-        let userDetail;
-        if(email != ''){
-            userDetail = await User.find({"email":email})
-            if(typeof userDetail == 'undefined' || userDetail.length == 0){
-                throw new Error('email is not valid')
+        try{
+            let email = args.email;
+            let userDetail;
+            if(email != ''){
+                userDetail = await User.find({"email":email})
+                if(typeof userDetail == 'undefined' || userDetail.length == 0){
+                    return {'response':'credential not found'}
+                }
             }
+            let password = args.password;
+            if(password != ''){
+                const passwordIsTrue = await bcrypt.compare(password, userDetail[0].password);
+                if(!passwordIsTrue){
+                    return {'response' : 'credential not found'}
+                }
+            }
+            return {'id':userDetail[0]._id,'email':userDetail[0].email,'response' : 'credential found'}
         }
-        let password = args.password;
-        if(password != ''){
-            const passwordIsTrue = await bcrypt.compare(password, userDetail[0].password);
-            if(!passwordIsTrue){
-                throw new Error('password not matched');
-            }
-        }  
-        return {'user':userDetail[0]}
+        catch(e){
+            throw new ApolloError('Network Error', 404, e);
+        }
     }
 }
 

@@ -1,19 +1,36 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {Card, Layout, Form, FormLayout, TextField, PageActions, FooterHelp, Link, Page} from '@shopify/polaris';
+import {gql} from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
+
+const LoginMutation = gql`
+    mutation LoginMutation($email: String!,$password : String!){
+      userAuthenticate(email:$email,password:$password){
+		email,
+		password,
+		response
+        }
+    }
+    `
 
 export default function LoginForm() {
+  const [addUser, { loading, error, data }] = useMutation(LoginMutation);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = useCallback((_event) => {
-	setEmail('');
+  console.log('data',data);
+  if (loading) return <p>Loading...</p>;
+  if (error) {
+	  return (
+		  <p>${error}</p>
+	  )
+	};
+  const handleSubmit = (e) => {
 	setPassword('');
-  }, []);
-  
-
-  const handleEmailChange = useCallback((value) => setEmail(value), []);
-  const handlePasswordChange = useCallback((value) => setPassword(value), []);
-
+    e.preventDefault();
+    addUser({ variables: { email:email,password:password } });
+  };
+  const handleEmailChange = (value) => setEmail(value);
+  const handlePasswordChange = (value) => setPassword(value);
   return (
 	  <Page>
 		<Form onSubmit={handleSubmit}>

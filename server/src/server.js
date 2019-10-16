@@ -4,7 +4,7 @@ const { ApolloServer,makeExecutableSchema} =  require('apollo-server-express');
 const dotenv = require('dotenv');
 dotenv.config();
 const {importSchema} = require('graphql-import');
-//const configuration =require( './config/database');
+const configuration =require( './config/database');
 const schema = require('./index');
 
 const PORT = process.env.PORT || 9002;
