@@ -19,11 +19,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   console.log('data',data);
   if (loading) return <p>Loading...</p>;
-  if (error) {
-	  return (
-		  <p>${error}</p>
-	  )
-	};
+  if (error) return <p>Error..</p>;
   const handleSubmit = (e) => {
 	setPassword('');
     e.preventDefault();
