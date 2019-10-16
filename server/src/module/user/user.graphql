@@ -1,6 +1,13 @@
+scalar Date
 type User{
-    email:String,
-    password: String,
+    email:String!,
+    password: String!,
     isVendor:Boolean,
     response:String
+    brandName:String,
+    firstName: String,
+    lastName: String,
+    createDate: Date,
+    updateDate: Date,
+    status: Int
 }

@@ -9,16 +9,19 @@ export default function RegisterForm() {
   const [last_name,setLastName] = useState('');
   const [brand_name,setBrandName] = useState('');
   const handleSubmit = useCallback((_event) => {
+
+  const handleSubmit = (event) => {
 	setEmail('');
 	setPassword('');
 	setFirstName('');
 	setLastName('');
 	setBrandName('');
     setCompanyPolicy(false);
-  }, []);
+  };
 
     const handleCompanyPolicyChange =
         (value) => {
+    const handleCompanyPolicyChange = (value) => {
             const checkBoxValue = document.getElementById("agreeCheckbox").value;
             if (checkBoxValue !== "false") {
                 setCompanyPolicy(false)
@@ -33,6 +36,10 @@ export default function RegisterForm() {
   const handleFirstNameChange = (value) => setFirstName(value);
   const handleLastNameChange = (value) => setLastName(value);
   const handleBrandNameChange = (value) => setBrandName(value);
+        };
+
+  const handleEmailChange = (value) => setEmail(value);
+  const handlePasswordChange = (value) => setPassword(value);
 
   const privacyPolicy = ( <Button plain>Privacy Policy</Button> );
   const termsUsed = ( <Button plain>Terms of Use</Button> );

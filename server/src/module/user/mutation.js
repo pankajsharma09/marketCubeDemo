@@ -9,15 +9,30 @@ const Mutation= {
     addUser: async (_, args) => {
         try{
             console.log(args);
-            let res = await User.create(args);
-            await pubsub.publish(USER_CREATED, { newUserCreated: res });
-            return res;
+         let email =args.email;
+         if(email==null || email==''){
+            throw new ApolloError('Email cant be blank');
+           }    
+           console.log(args);
+        let password = args.password;
+        if(password==null || password==''){
+         throw new ApolloError('Password cant be blank');
+        }
+        
+        console.log("save user started..");
+        let res = await User.create(args);
+        console.log("save user completed..")
+        await pubsub.publish(USER_CREATED, { newUserCreated: res });
+        return res;
         }
         catch(e){
             return e.message;
         }
+    
+    }
+ 
 
-    },
+    ,
     userAuthenticate : async(parent, args, context, info) => {
         try{
             let email = args.email;
@@ -40,7 +55,8 @@ const Mutation= {
         catch(e){
             throw new ApolloError('Network Error', 404, e);
         }
-    }
-}
+        }
+    }     
+        
 
 module.exports = Mutation;

@@ -5,7 +5,7 @@ type Query {
 }
 
 type Mutation{
-    addUser(email:String!,password:String!):User
+    addUser(email:String!,password:String!, brandName: String, firstName:String, lastName:String, createDate: Date,updatedate: Date,status: Int):User
     userAuthenticate(email:String!,password:String!): User
 
 }
