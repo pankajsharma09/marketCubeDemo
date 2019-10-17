@@ -32,6 +32,7 @@ const Mutation= {
             try{
                 let email = args.email;
                 let userDetail;
+                console.log("Authenitcate Started Email :"+email +" Password: *******");
                 if(email != ''){
                     userDetail = await User.find({"email":email})
                     if(typeof userDetail == 'undefined' || userDetail.length == 0){

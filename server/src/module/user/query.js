@@ -7,6 +7,7 @@ const Query = {
          return {id: "1", email: "test", password: "gjyhgjh"}},
 
       getUsers : () => {
+         console.log("fetch data from db");
             return User.find({isVendor:true});
       }
    }
