@@ -8,12 +8,10 @@ const Mutation= {
     //save the user
     addUser: async (_, args) => {
         try{
-            console.log(args);
          let email =args.email;
          if(email==null || email==''){
             throw new ApolloError('Email cant be blank');
            }    
-           console.log(args);
         let password = args.password;
         if(password==null || password==''){
          throw new ApolloError('Password cant be blank');
@@ -29,32 +27,29 @@ const Mutation= {
             return e.message;
         }
     
-    }
- 
-
-    ,
+    },
     userAuthenticate : async(parent, args, context, info) => {
-        try{
-            let email = args.email;
-            let userDetail;
-            if(email != ''){
-                userDetail = await User.find({"email":email})
-                if(typeof userDetail == 'undefined' || userDetail.length == 0){
-                    return {'response':'credential not found'}
+            try{
+                let email = args.email;
+                let userDetail;
+                if(email != ''){
+                    userDetail = await User.find({"email":email})
+                    if(typeof userDetail == 'undefined' || userDetail.length == 0){
+                        return {'response':'credential not found'}
+                    }
                 }
-            }
-            let password = args.password;
-            if(password != ''){
-                const passwordIsTrue = await bcrypt.compare(password, userDetail[0].password);
-                if(!passwordIsTrue){
-                    return {'response' : 'credential not found'}
+                let password = args.password;
+                if(password != ''){
+                    const passwordIsTrue = await bcrypt.compare(password, userDetail[0].password);
+                    if(!passwordIsTrue){
+                        return {'response' : 'credential not found'}
+                    }
                 }
+                return {'id':userDetail[0]._id,'email':userDetail[0].email,'response' : 'credential found'}
             }
-            return {'id':userDetail[0]._id,'email':userDetail[0].email,'response' : 'credential found'}
-        }
-        catch(e){
-            throw new ApolloError('Network Error', 404, e);
-        }
+            catch(e){
+                throw new ApolloError('Network Error', 404, e);
+            }
         }
     }     
         
