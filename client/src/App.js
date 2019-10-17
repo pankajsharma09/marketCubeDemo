@@ -9,8 +9,9 @@ import "@shopify/polaris/styles.css";
 
 import Login from "./user/login"
 import Register from "./user/registration"
+import UserList from "./user/userList"
 
-const client = new ApolloClient({ uri: 'http://localhost:9000/graphql' });
+const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
 
 const theme = {
 	colors: {
@@ -44,7 +45,7 @@ function App(props) {
 						<Route exact path="/" render={(props) => <Redirect to="/login" />} />
 						<Route path="/login" component={Login} />
 						<Route path="/register" component={Register} />
-					{/* <Route path="/user-list" component={UserList} /> */}
+						<Route path="/user-list" component={UserList} />
 					</Router>
 					<br/>
 					<div style={{textAlign: "center"}}>
