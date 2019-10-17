@@ -1,27 +1,33 @@
 import React, {useCallback, useState} from 'react';
 import {gql} from 'apollo-boost';
-import { graphql, Query } from 'react-apollo';
+import { graphql, Query, Subscription } from 'react-apollo';
 import {ResourceList, Card, ResourceItem, TextStyle, TextField, Button, Avatar, Filters, Page, Tabs} from '@shopify/polaris';
 
 const GET_QUERY = gql`
     query UserLists{
         getUsers{
-        id
+        id,
+        firstName,
+        lastName,
         email,
-        password
+        brandName,
+        status,
+        createDate
         }
     }
 `;
 
-const SUBSCRIPTION = gql`
+const USER_SUBSCRIPTION = gql`
     subscription  UserLists{
         newUserCreated {
+            firstName,
+            lastName,
             email,
-            password
+            brandName,
+            createDate
         }
     }
 `
-
  function UsersList(){
     const [selectedItems, setSelectedItems] = useState([]);
     const [taggedWith, setTaggedWith] = useState(null);
@@ -108,94 +114,91 @@ const SUBSCRIPTION = gql`
           ]
         : [];
     
-      const filterControl = (
-        <Filters
-          queryValue={queryValue}
-          filters={filters}
-          appliedFilters={appliedFilters}
-          onQueryChange={handleQueryValueChange}
-          onQueryClear={handleQueryValueRemove}
-          onClearAll={handleClearAll}
-        >
-        </Filters>
-      );
+        const filterControl = (
+            <Filters
+            queryValue={queryValue}
+            filters={filters}
+            appliedFilters={appliedFilters}
+            onQueryChange={handleQueryValueChange}
+            onQueryClear={handleQueryValueRemove}
+            onClearAll={handleClearAll}
+            >
+            </Filters>
+        );
 
-    return ( 
+        function renderItem(item) {
+            const {id, firstName, lastName, email, brandName, status, createDate } = item;
+            const shortcutActions = status
+                ? 'Pending':'Approved';
+            return (
+            <ResourceItem
+                id={id}
+                email={email}
+                // shortcutActions={shortcutActions}
+                persistActions
+            >
+                <h2>
+                <TextStyle>{brandName}</TextStyle>    
+                </h2>
+                <p>
+                <TextStyle>Name:{firstName} {lastName}</TextStyle><br></br>
+                <TextStyle>Email:{email}</TextStyle>
+                </p>
+                <p>
+                    Onboarded on {createDate}
+                </p>
+            </ResourceItem>
+            );
+        }
+
+        function resolveItemIds({id}) {
+            return id;
+        }
+
+        function disambiguateLabel(key, value) {
+            switch (key) {
+            case 'taggedWith':
+                return `Tagged with ${value}`;
+            default:
+                return value;
+            }
+        }
+        
+        function isEmpty(value) {
+            if (Array.isArray(value)) {
+            return value.length === 0;
+            } else {
+            return value === '' || value == null;
+            }
+        }
+
+        return ( 
          
-        <Page>
-        <Tabs tabs={venderListTab} selected={selected} onSelect={handleTabChange}>
-        </Tabs>
-        <Query query={GET_QUERY}> 
-        {({ loading, error, subscribeToMore, data }) => {
-            if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :</p>;
-        
-        return(
-        
-        <Card sectioned >
-        
-        <ResourceList
-            resourceName={resourceName}
-            items={data.getUsers}
-            renderItem={renderItem}
-            filterControl={filterControl}
-            selectedItems={selectedItems}
-            onSelectionChange={setSelectedItems}
-            promotedBulkActions={promotedBulkActions}
-            resolveItemId={resolveItemIds}
-            subscribeToNewData={() =>
-                subscribeToMore({
-                  document: SUBSCRIPTION,
-                  updateQuery: (prev, { subscriptionData }) => {
-                      console.log(subscriptionData);
-                    if (!subscriptionData.data) return prev;
-                    return subscriptionData.data;
-                  }
-                })
-              }
-        />
-        </Card>)
-        }}
-        </Query>
+        <Page breadcrumbs={[{content: 'Login', url:'/login'}]} title="Vendors">
+            <Tabs tabs={venderListTab} selected={selected} onSelect={handleTabChange}></Tabs>
+            <Query query={GET_QUERY}> 
+                {({ loading, error, data }) => {
+                    if (loading) return <p>Loading...</p>;
+                    if (error) return <p>Error :</p>;
+            
+                    return(
+                            <Card sectioned >
+                                <ResourceList
+                                    resourceName={resourceName}
+                                    items={data.getUsers}
+                                    renderItem={renderItem}
+                                    filterControl={filterControl}
+                                    selectedItems={selectedItems}
+                                    onSelectionChange={setSelectedItems}
+                                    promotedBulkActions={promotedBulkActions}
+                                    resolveItemId={resolveItemIds}
+                                />
+                            </Card>
+                    )
+                }}
+            </Query>
         </Page>
     );
-
-    function renderItem(item) {
-        console.log(item);
-        const {id, email} = item;
-        return (
-        <ResourceItem
-            id={id}
-            email={email}
-            persistActions
-        >
-            <h3>
-            <TextStyle variation="strong">{email}</TextStyle>
-            </h3>
-        </ResourceItem>
-        );
-    }
-
-    function resolveItemIds({id}) {
-        return;
-    }
-
-    function disambiguateLabel(key, value) {
-        switch (key) {
-          case 'taggedWith':
-            return `Tagged with ${value}`;
-          default:
-            return value;
-        }
-      }
-    
-      function isEmpty(value) {
-        if (Array.isArray(value)) {
-          return value.length === 0;
-        } else {
-          return value === '' || value == null;
-        }
-      }
 }
 
 export default graphql(GET_QUERY,{
