@@ -6,9 +6,7 @@ const Query = {
          console.log("hi ");
          return {id: "1", email: "test", password: "gjyhgjh"}},
 
-      getUsers : () => {
-            return User.find({isVendor:true});
-      }
+      getUsers : () =>  User.find({isVendor:true})
    }
 
 

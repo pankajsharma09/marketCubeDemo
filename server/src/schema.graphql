@@ -1,11 +1,23 @@
-
+scalar Date
+type User{
+    email:String,
+    password: String,
+    isVendor:Boolean,
+    response:String
+    brandName:String,
+    firstName: String,
+    lastName: String,
+    createDate: Date,
+    updateDate: Date,
+    status: Int
+}
 type Query {
     test : User,
     getUsers : [User]
 }
 
 type Mutation{
-    addUser(email:String!,password:String!, brandName: String, firstName:String, lastName:String, createDate: Date,updatedate: Date,status: Int):User
+    addUser(email:String,password:String, brandName: String, firstName:String, lastName:String, createDate: Date,updatedate: Date,status: Int):User
     userAuthenticate(email:String!,password:String!): User
 
 }

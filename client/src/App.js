@@ -1,7 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import ApolloClient from 'apollo-boost';
+import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
+import { getMainDefinition } from 'apollo-utilities';
+import { ApolloLink, split } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
+import { WebSocketLink } from 'apollo-link-ws';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { AppProvider, Frame, TopBar, Page,Caption, Button, TextStyle } from "@shopify/polaris";
 import en from '@shopify/polaris/locales/en.json';
@@ -9,8 +14,39 @@ import "@shopify/polaris/styles.css";
 
 import Login from "./user/login"
 import Register from "./user/registration"
+import UserList from "./user/userList"
 
-const client = new ApolloClient({ uri: 'http://localhost:9000/graphql' });
+const httpLink = new HttpLink({
+    uri: 'http://localhost:3000/graphql',
+});
+
+
+
+const wsLink = new WebSocketLink({
+    uri: `ws://localhost:4000/graphql`,
+    options: {
+      reconnect: true,
+    },
+});
+
+
+
+const link = split(
+    ({ query }) => {
+      const { kind, operation } = getMainDefinition(query);
+      return (
+        kind === 'OperationDefinition' && operation === 'subscription'
+      );
+	},
+	wsLink,
+    httpLink,
+);
+
+//const link = ApolloLink.from([terminatingLink]);
+const cache = new InMemoryCache();
+// console.log(link);
+// const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
+const client = new ApolloClient({ link,cache });
 
 const theme = {
 	colors: {
@@ -44,7 +80,7 @@ function App(props) {
 						<Route exact path="/" render={(props) => <Redirect to="/login" />} />
 						<Route path="/login" component={Login} />
 						<Route path="/register" component={Register} />
-					{/* <Route path="/user-list" component={UserList} /> */}
+						<Route path="/user-list" component={UserList} />
 					</Router>
 					<br/>
 					<div style={{textAlign: "center"}}>

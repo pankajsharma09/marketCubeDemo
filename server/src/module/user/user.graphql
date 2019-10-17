@@ -1,5 +1,6 @@
 scalar Date
 type User{
+    id:ID
     email:String!,
     password: String!,
     isVendor:Boolean,
