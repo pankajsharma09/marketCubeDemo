@@ -1,5 +1,6 @@
-import React, { useState} from 'react';
-import { Card, Layout, Form, FormLayout, TextField, PageActions, Checkbox, Stack, Page } from '@shopify/polaris';
+import React, { useState, useEffect} from 'react';
+import  { Redirect } from 'react-router-dom'
+import { Card, Layout, Form, FormLayout, TextField, PageActions, Checkbox, Stack, Page, Banner } from '@shopify/polaris';
 import {gql} from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import PrivacyPolicy, { TermsUsed } from './modals'
@@ -20,14 +21,16 @@ export default function RegisterForm() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [firstName,setFirstName] = useState('');
     const [lastName,setLastName] = useState('');
-    const [brandName,setBrandName] = useState('');
+	const [brandName,setBrandName] = useState('');
+	const [bannerStatus, setBannerStatus] = useState('critical');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
     const [firstNameError, setFirstNameError] = useState('');
     const [lastNameError, setLastNameError] = useState('');
-    const [brandNameError, setBrandNameError] = useState('');
-    const emailFieldPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{1,4})$/;
+	const [brandNameError, setBrandNameError] = useState('');
+	const [bannerError, setBannerError] = useState('');
+	const emailFieldPattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{1,4})$/;
 
     const handleFirstNameChange = (value) => {
         setFirstName(value)
@@ -84,7 +87,7 @@ export default function RegisterForm() {
             return false;
         }
         if(!companyPolicy){
-
+			setBannerError('Please accept policy and terms of use to register');
             return false;
         }
 
@@ -94,12 +97,12 @@ export default function RegisterForm() {
         setFirstName('')
         setLastName('')
         setBrandName('')
-        setCompanyPolicy(false);
+		setCompanyPolicy(false);
+		setBannerStatus('success')
+		setBannerError('Registration is successfull!');
         e.preventDefault();
         addNewUser({ variables: { email:email,password:password,firstName:firstName,lastName:lastName,brandName:brandName } });
-
-    }
-
+	}
 
     const isValidEmail = (value, pattern) => {
         if (value === '') {
@@ -136,13 +139,18 @@ export default function RegisterForm() {
             return false;
         }
         return true;
-    }
-
+	}
+	const successMessage = () => {
+		setTimeout(() => {return true}, 1000);
+	}
     const privacyPolicy = (<PrivacyPolicy />);
-    const termsUsed = (<TermsUsed />);
-
+	const termsUsed = (<TermsUsed />);
+// console.log("Redirect", data);
     return (
         <Page>
+			{/* {data.addUser.email && <Redirect to="/login" />}   */}
+			{bannerError ? <Banner title={bannerError} status={bannerStatus}></Banner> : ''}
+			<br/>
             <Form onSubmit={handleSubmit}>
                 <Layout>
                     <Layout.AnnotatedSection
@@ -215,6 +223,7 @@ export default function RegisterForm() {
                     </Layout.AnnotatedSection>
                 </Layout>
             </Form>
+			{data && data.addUser && data.addUser.email && setTimeout(3000) && <Redirect to="/login" />}
         </Page>
     );
 }
