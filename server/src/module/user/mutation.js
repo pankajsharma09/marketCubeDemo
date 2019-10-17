@@ -1,5 +1,5 @@
 const User =require( '../../models/user.model');
-
+const ApolloError= require('apollo-server-express')
 const bcrypt = require('bcrypt');
 
 const {USER_CREATED, pubsub} = require('../../subscription');
@@ -35,17 +35,17 @@ const Mutation= {
                 if(email != ''){
                     userDetail = await User.find({"email":email})
                     if(typeof userDetail == 'undefined' || userDetail.length == 0){
-                        return {'response':'credential not found'}
+                        return {'response':'INVALID'}
                     }
                 }
                 let password = args.password;
                 if(password != ''){
                     const passwordIsTrue = await bcrypt.compare(password, userDetail[0].password);
                     if(!passwordIsTrue){
-                        return {'response' : 'credential not found'}
+                        return {'response' : 'INVALID'}
                     }
                 }
-                return {'id':userDetail[0]._id,'email':userDetail[0].email,'response' : 'credential found'}
+                return {'id':userDetail[0]._id,'email':userDetail[0].email,'response' : 'VALID'}
             }
             catch(e){
                 throw new ApolloError('Network Error', 404, e);
