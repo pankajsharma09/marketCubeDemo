@@ -8,18 +8,17 @@ const Mutation= {
     //save the user
     addUser: async (_, args) => {
         try{
-         let email =args.email;
-         if(email==null || email==''){
+        const {email, password} = args;
+
+        if(email==null || email==''){
             throw new ApolloError('Email cant be blank');
-           }    
-        let password = args.password;
+        }
+
         if(password==null || password==''){
          throw new ApolloError('Password cant be blank');
         }
         
-        console.log("save user started..");
-        let res = await User.create(args);
-        console.log("save user completed..")
+        const res = await User.create(args);
         await pubsub.publish(USER_CREATED, { newUserCreated: res });
         return res;
         }
@@ -30,16 +29,14 @@ const Mutation= {
     },
     userAuthenticate : async(parent, args, context, info) => {
             try{
-                let email = args.email;
+                const {email, password} = args;
                 let userDetail;
-                console.log("Authenitcate Started Email :"+email +" Password: *******");
                 if(email != ''){
                     userDetail = await User.find({"email":email})
-                    if(typeof userDetail == 'undefined' || userDetail.length == 0){
+                    if(typeof userDetail == 'undefined' || !userDetail.length){
                         return {'response':'credential not found'}
                     }
                 }
-                let password = args.password;
                 if(password != ''){
                     const passwordIsTrue = await bcrypt.compare(password, userDetail[0].password);
                     if(!passwordIsTrue){

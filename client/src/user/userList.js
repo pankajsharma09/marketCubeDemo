@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {gql} from 'apollo-boost';
 import { graphql, Query, Subscription } from 'react-apollo';
 import {ResourceList, Card, ResourceItem, TextStyle, TextField, Button, Avatar, Filters, Page, Tabs} from '@shopify/polaris';
+import VendorList from '../components/Lists/VendorList';
 
 const GET_QUERY = gql`
     query UserLists{
@@ -177,13 +178,13 @@ const USER_SUBSCRIPTION = gql`
         <Page breadcrumbs={[{content: 'Login', url:'/login'}]} title="Vendors">
             <Tabs tabs={venderListTab} selected={selected} onSelect={handleTabChange}></Tabs>
             <Query query={GET_QUERY}> 
-                {({ loading, error, data }) => {
+                {({ loading, error, data, subscribeToMore }) => {
                     if (loading) return <p>Loading...</p>;
                     if (error) return <p>Error :</p>;
-            
+                    
                     return(
                             <Card sectioned >
-                                <ResourceList
+                                <VendorList
                                     resourceName={resourceName}
                                     items={data.getUsers}
                                     renderItem={renderItem}
@@ -192,6 +193,7 @@ const USER_SUBSCRIPTION = gql`
                                     onSelectionChange={setSelectedItems}
                                     promotedBulkActions={promotedBulkActions}
                                     resolveItemId={resolveItemIds}
+                                    subscribeToMore={subscribeToMore}
                                 />
                             </Card>
                     )
