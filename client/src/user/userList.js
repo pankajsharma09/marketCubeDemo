@@ -1,7 +1,8 @@
 import React, {useCallback, useState} from 'react';
 import {gql} from 'apollo-boost';
-import { graphql, Query, Subscription } from 'react-apollo';
-import {ResourceList, Card, ResourceItem, TextStyle, TextField, Button, Avatar, Filters, Page, Tabs} from '@shopify/polaris';
+import Moment from 'react-moment';
+import { graphql, Query} from 'react-apollo';
+import { Card, ResourceItem, TextStyle, TextField, Filters, Page, Tabs, Layout, Link} from '@shopify/polaris';
 import VendorList from '../components/Lists/VendorList';
 
 const GET_QUERY = gql`
@@ -18,22 +19,12 @@ const GET_QUERY = gql`
     }
 `;
 
-const USER_SUBSCRIPTION = gql`
-    subscription  UserLists{
-        newUserCreated {
-            firstName,
-            lastName,
-            email,
-            brandName,
-            createDate
-        }
-    }
-`
  function UsersList(){
     const [selectedItems, setSelectedItems] = useState([]);
     const [taggedWith, setTaggedWith] = useState(null);
     const [queryValue, setQueryValue] = useState(null);
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState();
+    const [headerSelected, setHeaderSelected] = useState(0);
 
     const handleTaggedWithChange = useCallback(
         (value) => setTaggedWith(value),
@@ -50,6 +41,11 @@ const USER_SUBSCRIPTION = gql`
         [],
       );
 
+      const handleHeaderTabChange = useCallback(
+        (selectedTabIndex) => setHeaderSelected(selectedTabIndex),
+        [],
+      );
+
     const handleTaggedWithRemove = useCallback(() => setTaggedWith(null), []);
     const handleQueryValueRemove = useCallback(() => setQueryValue(null), []);
     const handleClearAll = useCallback(() => {
@@ -59,8 +55,8 @@ const USER_SUBSCRIPTION = gql`
     
 
     const resourceName = {
-      singular: 'customer',
-      plural: 'customers',
+      singular: 'Vendor',
+      plural: 'Vendors',
     };
 
     const venderListTab = [
@@ -81,6 +77,45 @@ const USER_SUBSCRIPTION = gql`
         panelID: 'approved',
         },
     ];
+    
+    const headerTabs = [
+        {
+          id:1,
+          content: 'Home',
+          panelID: 'home',
+        },
+        {
+          id:2,
+          content: 'Invitations',
+          panelID: 'invitation',
+        },
+        {
+            id:3,
+            content: 'Orders',
+            panelID: 'orders',
+        },
+        {
+            id:4,
+            content: 'Products',
+            panelID: 'products',
+        },
+        {
+            id:5,
+            content: 'Payments',
+            panelID: 'payments',
+        },
+        {
+            id:6,
+            content: 'Vendors',
+            panelID: 'vendors',
+        },
+        {
+            id:7,
+            content: 'Settings',
+            panelID: 'settings  ',
+        },
+
+      ];
     
     const promotedBulkActions = [
       {
@@ -131,6 +166,7 @@ const USER_SUBSCRIPTION = gql`
             const {id, firstName, lastName, email, brandName, status, createDate } = item;
             const shortcutActions = status
                 ? 'Pending':'Approved';
+
             return (
             <ResourceItem
                 id={id}
@@ -139,14 +175,14 @@ const USER_SUBSCRIPTION = gql`
                 persistActions
             >
                 <h2>
-                <TextStyle>{brandName}</TextStyle>    
+                <Link><TextStyle><strong>{brandName}</strong></TextStyle></Link>   
                 </h2>
                 <p>
                 <TextStyle>Name:{firstName} {lastName}</TextStyle><br></br>
                 <TextStyle>Email:{email}</TextStyle>
                 </p>
                 <p>
-                    Onboarded on {createDate}
+                    Onboarded on <Moment format="MMMM DD, YYYY  hh:mm">{createDate}</Moment>&nbsp;(GMT)
                 </p>
             </ResourceItem>
             );
@@ -176,26 +212,43 @@ const USER_SUBSCRIPTION = gql`
         return ( 
          
         <Page breadcrumbs={[{content: 'Login', url:'/login'}]} title="Vendors">
-            <Tabs tabs={venderListTab} selected={selected} onSelect={handleTabChange}></Tabs>
+            <div>
+                <Tabs tabs={headerTabs} selected={headerSelected} onSelect={handleHeaderTabChange} fitted></Tabs>
+            </div>
+            <br></br>
             <Query query={GET_QUERY}> 
                 {({ loading, error, data, subscribeToMore }) => {
                     if (loading) return <p>Loading...</p>;
                     if (error) return <p>Error :</p>;
                     
                     return(
-                            <Card sectioned >
-                                <VendorList
-                                    resourceName={resourceName}
-                                    items={data.getUsers}
-                                    renderItem={renderItem}
-                                    filterControl={filterControl}
-                                    selectedItems={selectedItems}
-                                    onSelectionChange={setSelectedItems}
-                                    promotedBulkActions={promotedBulkActions}
-                                    resolveItemId={resolveItemIds}
-                                    subscribeToMore={subscribeToMore}
-                                />
-                            </Card>
+                        <Layout>
+                            <Layout.Section>
+                                <Card>
+                                <Tabs tabs={venderListTab} selected={selected} onSelect={handleTabChange}></Tabs>
+                                    <VendorList
+                                        resourceName={resourceName}
+                                        items={data.getUsers}
+                                        renderItem={renderItem}
+                                        filterControl={filterControl}
+                                        selectedItems={selectedItems}
+                                        onSelectionChange={setSelectedItems}
+                                        promotedBulkActions={promotedBulkActions}
+                                        resolveItemId={resolveItemIds}
+                                        subscribeToMore={subscribeToMore}
+                                    />
+                                </Card>
+                            </Layout.Section>
+                            <Layout.Section secondary>
+                                <Card title="Quick Links">
+                                
+                                <Card.Section>
+                                    <Link url="/register"><h1><strong>Add Vendor</strong></h1></Link>
+                                    <p>Manage your Vendors</p>
+                                </Card.Section>
+                                </Card>
+                            </Layout.Section>
+                        </Layout>
                     )
                 }}
             </Query>
