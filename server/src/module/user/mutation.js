@@ -35,7 +35,7 @@ const Mutation = {
             let userDetail;
             if (email != '') {
                 userDetail = await User.find({ "email": email })
-                if (typeof userDetail == 'undefined' || !userDetail.length) {
+                if (!userDetail.length) {
                     return { 'response': 'INVALID' }
                 }
             }

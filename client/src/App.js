@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { getMainDefinition } from 'apollo-utilities';
-import { ApolloLink, split } from 'apollo-link';
+import { split } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { InMemoryCache } from 'apollo-cache-inmemory';
