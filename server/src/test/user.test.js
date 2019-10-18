@@ -9,8 +9,8 @@ describe("Test User schema", () => {
   beforeAll(() => {
     tester = new EasyGraphQLTester(schemaCode);
   });
-describe("Queries & Mutations", () => {
-    
+  describe("Queries & Mutations", () => {
+
     test("Should get all the fields on getUsers", () => {
       const query = `
         {
@@ -25,7 +25,7 @@ describe("Queries & Mutations", () => {
       // First arg: true, the query is valid
       // Second arg: query to test
       tester.test(true, query);
-      
+
     });
     test("Should be a valid mutation", () => {
       const mutation = `
@@ -50,7 +50,7 @@ describe("Queries & Mutations", () => {
         email: null,
         firstName: "demo",
         passowrd: "demo name"
-        
+
       });
     });
   });
