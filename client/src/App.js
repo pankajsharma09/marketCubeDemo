@@ -17,13 +17,13 @@ import Register from "./user/registration"
 import UserList from "./user/userList"
 
 const httpLink = new HttpLink({
-    uri: 'http://localhost:3000/graphql',
+    uri: 'http://localhost:9000/graphql',
 });
 
 
 
 const wsLink = new WebSocketLink({
-    uri: `ws://localhost:3000/graphql`,
+    uri: `ws://localhost:9000/graphql`,
     options: {
       reconnect: true,
     },
