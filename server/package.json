@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -e js,graphql  --exec babel-node src/server.js",
-    "test": "jest"
+    "test": "jest --watchAll --verbose --detectOpenHandles test"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "apollo-server-core": "^2.9.6",
     "apollo-server-express": "^2.8.1",
     "bcrypt": "^3.0.6",
+    "chai": "^4.2.0",
     "dotenv": "^8.1.0",
     "easygraphql-tester": "^5.1.6",
     "express": "^4.17.1",
