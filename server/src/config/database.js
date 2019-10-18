@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const url = process.env.URL;
-
-mongoose.connect(url, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).then(
-  () => { console.log('Database is connected') },
-  err => { console.log('Can not connect to the database' + err) }
-);
+try{
+  mongoose.connect(url, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+  console.log('Database is connected to '+url);
+}
+catch(err){
+   console.log('Can not connect to the database' + err); 
+}
