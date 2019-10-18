@@ -1,8 +1,8 @@
 scalar Date
 type User{
     id:ID
-    email:String!,
-    password: String!,
+    email:String,
+    password: String,
     isVendor:Boolean,
     response:String
     brandName:String,
