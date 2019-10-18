@@ -17,16 +17,15 @@ import Register from "./user/registration"
 import UserList from "./user/userList"
 
 const httpLink = new HttpLink({
-	uri: 'http://localhost:9000/graphql',
+    uri: process.env.REACT_APP_APOLLO_GRAPHQL_URI,
 });
 
 
-
 const wsLink = new WebSocketLink({
-	uri: `ws://localhost:9000/graphql`,
-	options: {
-		reconnect: true,
-	},
+    uri: process.env.REACT_APP_APOLLO_SUBSCRIPTION_URI,
+    options: {
+      reconnect: true,
+    },
 });
 
 
@@ -68,6 +67,7 @@ const theme = {
 const topBarMarkup = <TopBar />;
 
 function App(props) {
+	console.log(process.env.REACT_APP_APOLLO_GRAPHQL_URI)
 	return (
 		<ApolloProvider client={client}>
 			<AppProvider

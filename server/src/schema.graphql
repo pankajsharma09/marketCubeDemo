@@ -12,7 +12,6 @@ type User{
     status: Int
 }
 type Query {
-    test : User,
     getUsers : [User]
 }
 

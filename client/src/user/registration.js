@@ -9,7 +9,6 @@ const RegisterMutation = gql`
     mutation RegisterMutation($email: String,$password : String,$firstName : String,$lastName : String,$brandName:String){
 		addUser(email:$email,password:$password,firstName:$firstName,lastName:$lastName,brandName:$brandName){
 			email,
-			password,
 			response
 		}
 	}`
