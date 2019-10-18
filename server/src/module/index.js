@@ -1,18 +1,18 @@
-const  { Query : userQuery,
-    Mutation : UserMutation,
+const { Query: userQuery,
+    Mutation: UserMutation,
     Subscription: userSubscription
-} =require( './user');
+} = require('./user');
 
 const resolvers = {
-    Query : {
-    ...userQuery 
+    Query: {
+        ...userQuery
     },
-    Mutation : {
-    ...UserMutation
+    Mutation: {
+        ...UserMutation
     },
     Subscription: {
         ...userSubscription
     }
 }
 
-module.exports= resolvers;
+module.exports = resolvers;

@@ -8,7 +8,7 @@ import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import { AppProvider, Frame, TopBar, Page,Caption, Button, TextStyle } from "@shopify/polaris";
+import { AppProvider, Frame, TopBar, Page, Caption, Button, TextStyle } from "@shopify/polaris";
 import en from '@shopify/polaris/locales/en.json';
 import "@shopify/polaris/styles.css";
 
@@ -17,36 +17,36 @@ import Register from "./user/registration"
 import UserList from "./user/userList"
 
 const httpLink = new HttpLink({
-    uri: 'http://localhost:9000/graphql',
+	uri: 'http://localhost:9000/graphql',
 });
 
 
 
 const wsLink = new WebSocketLink({
-    uri: `ws://localhost:9000/graphql`,
-    options: {
-      reconnect: true,
-    },
+	uri: `ws://localhost:9000/graphql`,
+	options: {
+		reconnect: true,
+	},
 });
 
 
 
 const link = split(
-    ({ query }) => {
-      const { kind, operation } = getMainDefinition(query);
-      return (
-        kind === 'OperationDefinition' && operation === 'subscription'
-      );
+	({ query }) => {
+		const { kind, operation } = getMainDefinition(query);
+		return (
+			kind === 'OperationDefinition' && operation === 'subscription'
+		);
 	},
 	wsLink,
-    httpLink,
+	httpLink,
 );
 
 //const link = ApolloLink.from([terminatingLink]);
 const cache = new InMemoryCache();
 // console.log(link);
 // const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
-const client = new ApolloClient({ link,cache });
+const client = new ApolloClient({ link, cache });
 
 const theme = {
 	colors: {
@@ -74,7 +74,7 @@ function App(props) {
 				theme={theme}
 				i18n={en}
 			>
-				<br/>
+				<br />
 				<Frame topBar={topBarMarkup} >
 					<Router>
 						<Route exact path="/" render={(props) => <Redirect to="/login" />} />
@@ -82,8 +82,8 @@ function App(props) {
 						<Route path="/register" component={Register} />
 						<Route path="/user-list" component={UserList} />
 					</Router>
-					<br/>
-					<div style={{textAlign: "center"}}>
+					<br />
+					<div style={{ textAlign: "center" }}>
 						<Caption>
 							<TextStyle variation="subdued">Powered by &nbsp;
 								<Button external plain ariaPressed url='https://www.marketcube.io/'>

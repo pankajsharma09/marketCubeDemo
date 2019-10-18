@@ -24,7 +24,7 @@ export default class VendorList extends Component {
             document: USER_SUBSCRIPTION,
             updateQuery: (prev, { subscriptionData }) => {
                 if (!subscriptionData.data) return prev;
-                const newData = { getUsers: [...prev.getUsers, {...subscriptionData.data.newUserCreated}] }
+                const newData = { getUsers: [...prev.getUsers, { ...subscriptionData.data.newUserCreated }] }
                 return newData;
             },
         });

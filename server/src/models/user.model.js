@@ -7,46 +7,46 @@ let User = new Schema({
   email: {
     type: String
   },
-   password: {
+  password: {
     type: String
   },
   isVendor: {
     type: Boolean
   },
-  brandName:{
+  brandName: {
     type: String
   },
-  status:{
+  status: {
     type: Number
   },
-  createDate:{
+  createDate: {
     type: Date
   },
-  updateDate:{
+  updateDate: {
     type: Date
   },
-  firstName:{
+  firstName: {
     type: String
   },
-  lastName:{
+  lastName: {
     type: String
   }
 
-  
 
-},{
-    collection: 'user'
+
+}, {
+  collection: 'user'
 });
 User.pre('save', async function (next) {
   // Hash the password before saving the user model
- const user = this
+  const user = this
   if (user.isModified('password')) {
-      user.password = await bcrypt.hash(user.password, 8)
-      user.createDate= new Date()
-      user.updateDate=new Date()
-      user.status=1
-      user.isVendor=true
-    
+    user.password = await bcrypt.hash(user.password, 8)
+    user.createDate = new Date()
+    user.updateDate = new Date()
+    user.status = 1
+    user.isVendor = true
+
   }
   next()
 })
