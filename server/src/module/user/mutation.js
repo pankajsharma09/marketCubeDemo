@@ -30,6 +30,7 @@ const Mutation = {
 
     },
     userAuthenticate: async (parent, args, context, info) => {
+        //Authenticate User
         try {
             const { email, password } = args;
             let userDetail;

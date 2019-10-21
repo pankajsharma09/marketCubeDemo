@@ -41,10 +41,7 @@ const link = split(
 	httpLink,
 );
 
-//const link = ApolloLink.from([terminatingLink]);
 const cache = new InMemoryCache();
-// console.log(link);
-// const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
 const client = new ApolloClient({ link, cache });
 
 const theme = {

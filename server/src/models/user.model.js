@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
-// Define collection and schema for Business
+// Define collection and schema for User
 let User = new Schema({
   email: {
     type: String

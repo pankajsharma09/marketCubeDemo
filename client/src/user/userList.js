@@ -219,7 +219,7 @@ function UsersList() {
             <Query query={GET_QUERY}>
                 {({ loading, error, data, subscribeToMore }) => {
                     if (loading) return <p>Loading...</p>;
-                    if (error) return <p>Error :</p>;
+                    if (error) return <p>Error : Something Went Wrong</p>;
 
                     return (
                         <Layout>

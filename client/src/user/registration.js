@@ -12,6 +12,7 @@ const RegisterMutation = gql`
 			response
 		}
 	}`
+	
 export default function RegisterForm() {
 	const [addNewUser, { loading, error, data }] = useMutation(RegisterMutation);
 	const [companyPolicy, setCompanyPolicy] = useState(false);
