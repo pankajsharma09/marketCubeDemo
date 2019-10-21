@@ -171,7 +171,7 @@ function UsersList() {
             <ResourceItem
                 id={id}
                 email={email}
-                // shortcutActions={shortcutActions}
+                 shortcutActions={shortcutActions}
                 persistActions
             >
                 <h2>
@@ -181,6 +181,7 @@ function UsersList() {
                     <TextStyle>Name:{firstName} {lastName}</TextStyle><br></br>
                     <TextStyle>Email:{email}</TextStyle>
                 </p>
+                
                 <p>
                     Onboarded on <Moment format="MMMM DD, YYYY  hh:mm">{createDate}</Moment>&nbsp;(GMT)
                 </p>

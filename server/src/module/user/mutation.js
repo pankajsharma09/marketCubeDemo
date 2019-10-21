@@ -8,7 +8,6 @@ const Mutation = {
     //save the user
     addUser: async (_, args) => {
         try {
-
             const { email, password } = args;
             if (email == null || email == '') {
                 throw new ApolloError('Email cant be blank');
@@ -32,7 +31,9 @@ const Mutation = {
     userAuthenticate: async (parent, args, context, info) => {
         //Authenticate User
         try {
+            
             const { email, password } = args;
+
             let userDetail;
             if (email != '') {
                 userDetail = await User.find({ "email": email })
@@ -40,12 +41,14 @@ const Mutation = {
                     return { 'response': 'INVALID' }
                 }
             }
+
             if (password != '') {
                 const passwordIsTrue = await bcrypt.compare(password, userDetail[0].password);
                 if (!passwordIsTrue) {
                     return { 'response': 'INVALID' }
                 }
             }
+
             return { 'id': userDetail[0]._id, 'email': userDetail[0].email, 'response': 'VALID' }
         }
         catch (e) {
