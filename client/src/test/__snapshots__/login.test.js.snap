@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly when there are no items 1`] = `
+<div
+  data-polaris-theme-provider={true}
+  style={
+    Object {
+      "--top-bar-background": "#00848e",
+      "--top-bar-background-lighter": "#1d9ba4",
+      "--top-bar-color": "#f9fafb",
+    }
+  }
+>
+  <div
+    className="Polaris-Page"
+  >
+    <div
+      className="Polaris-Page__Content"
+    >
+      
+      <br />
+      <form
+        method="post"
+        onSubmit={[Function]}
+      >
+        <div
+          className="Polaris-Layout"
+        >
+          <div
+            className="Polaris-Layout__AnnotatedSection"
+          >
+            <div
+              className="Polaris-Layout__AnnotationWrapper"
+            >
+              <div
+                className="Polaris-Layout__Annotation"
+              >
+                <div
+                  className="Polaris-TextContainer"
+                >
+                  <h2
+                    className="Polaris-Heading"
+                  >
+                    Log in to your MarketCube Dashboard
+                  </h2>
+                  <div
+                    className="Polaris-Layout__AnnotationDescription"
+                  >
+                    <p>
+                      Access your dashboard to manage products and orders
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="Polaris-Layout__AnnotationContent"
+              >
+                <div
+                  className="Polaris-Card"
+                >
+                  <div
+                    className="Polaris-Card__Section"
+                  >
+                    <div
+                      className="Polaris-FormLayout"
+                    >
+                      <div
+                        className="Polaris-FormLayout__Item"
+                      >
+                        <div
+                          className=""
+                        >
+                          <div
+                            className="Polaris-Labelled__LabelWrapper"
+                          >
+                            <div
+                              className="Polaris-Label"
+                            >
+                              <label
+                                className="Polaris-Label__Text"
+                                htmlFor="PolarisTextField1"
+                                id="PolarisTextField1Label"
+                              >
+                                Username
+                              </label>
+                            </div>
+                          </div>
+                          <div
+                            className="Polaris-Connected"
+                          >
+                            <div
+                              className="Polaris-Connected__Item Polaris-Connected__Item--primary"
+                              onBlur={[Function]}
+                              onFocus={[Function]}
+                            >
+                              <div
+                                className="Polaris-TextField"
+                                onBlur={[Function]}
+                                onClick={[Function]}
+                                onFocus={[Function]}
+                              >
+                                <input
+                                  aria-invalid={false}
+                                  className="Polaris-TextField__Input"
+                                  id="PolarisTextField1"
+                                  max={Infinity}
+                                  min={-Infinity}
+                                  name="email"
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  step={1}
+                                  style={null}
+                                  value=""
+                                />
+                                <div
+                                  className="Polaris-TextField__Backdrop"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="Polaris-FormLayout__Item"
+                      >
+                        <div
+                          className=""
+                        >
+                          <div
+                            className="Polaris-Labelled__LabelWrapper"
+                          >
+                            <div
+                              className="Polaris-Label"
+                            >
+                              <label
+                                className="Polaris-Label__Text"
+                                htmlFor="PolarisTextField2"
+                                id="PolarisTextField2Label"
+                              >
+                                Password
+                              </label>
+                            </div>
+                          </div>
+                          <div
+                            className="Polaris-Connected"
+                          >
+                            <div
+                              className="Polaris-Connected__Item Polaris-Connected__Item--primary"
+                              onBlur={[Function]}
+                              onFocus={[Function]}
+                            >
+                              <div
+                                className="Polaris-TextField"
+                                onBlur={[Function]}
+                                onClick={[Function]}
+                                onFocus={[Function]}
+                              >
+                                <input
+                                  aria-invalid={false}
+                                  className="Polaris-TextField__Input"
+                                  id="PolarisTextField2"
+                                  max={Infinity}
+                                  min={-Infinity}
+                                  name="password"
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  step={1}
+                                  style={null}
+                                  type="password"
+                                  value=""
+                                />
+                                <div
+                                  className="Polaris-TextField__Backdrop"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="Polaris-PageActions"
+                >
+                  <div
+                    className="Polaris-Stack Polaris-Stack--spacingTight Polaris-Stack--distributionEqualSpacing"
+                  >
+                    <div
+                      className="Polaris-Stack__Item"
+                    >
+                      <div
+                        className="Polaris-ButtonGroup"
+                      >
+                        <div
+                          className="Polaris-ButtonGroup__Item Polaris-ButtonGroup__Item--plain"
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                        >
+                          <a
+                            className="Polaris-Button Polaris-Button--plain"
+                            data-polaris-unstyled={true}
+                            href="/"
+                            onMouseUp={[Function]}
+                          >
+                            <span
+                              className="Polaris-Button__Content"
+                            >
+                              <span
+                                className="Polaris-Button__Text"
+                              >
+                                Forgotten Password
+                              </span>
+                            </span>
+                          </a>
+                        </div>
+                        <div
+                          className="Polaris-ButtonGroup__Item Polaris-ButtonGroup__Item--plain"
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                        >
+                          <a
+                            className="Polaris-Button Polaris-Button--plain"
+                            data-polaris-unstyled={true}
+                            href="/"
+                            onMouseUp={[Function]}
+                          >
+                            <span
+                              className="Polaris-Button__Content"
+                            >
+                              <span
+                                className="Polaris-Button__Text"
+                              >
+                                Resend Verification Email
+                              </span>
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="Polaris-Stack__Item"
+                    >
+                      <button
+                        className="Polaris-Button Polaris-Button--primary"
+                        onMouseUp={[Function]}
+                        type="submit"
+                      >
+                        <span
+                          className="Polaris-Button__Content"
+                        >
+                          <span
+                            className="Polaris-Button__Text"
+                          >
+                            Login
+                          </span>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span
+          className="Polaris-VisuallyHidden"
+        >
+          <button
+            aria-hidden="true"
+            type="submit"
+          >
+            
+          </button>
+        </span>
+      </form>
+      <div
+        className="Polaris-FooterHelp"
+      >
+        <div
+          className="Polaris-FooterHelp__Content"
+        >
+          <div
+            className="Polaris-FooterHelp__Icon"
+          >
+            <span
+              className="Polaris-Icon Polaris-Icon--colorTeal Polaris-Icon--isColored Polaris-Icon--hasBackdrop"
+            >
+              <svg
+                aria-hidden="true"
+                className="Polaris-Icon__Svg"
+                focusable="false"
+                viewBox="0 0 20 20"
+              >
+                <circle
+                  cx={10}
+                  cy={10}
+                  fill="currentColor"
+                  r={9}
+                />
+                <path
+                  d="M10 0C4.486 0 0 4.486 0 10s4.486 10 10 10 10-4.486 10-10S15.514 0 10 0m0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8m0-4a1 1 0 1 0 0 2 1 1 0 1 0 0-2m0-10C8.346 4 7 5.346 7 7a1 1 0 1 0 2 0 1.001 1.001 0 1 1 1.591.808C9.58 8.548 9 9.616 9 10.737V11a1 1 0 1 0 2 0v-.263c0-.653.484-1.105.773-1.317A3.013 3.013 0 0 0 13 7c0-1.654-1.346-3-3-3"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            className="Polaris-FooterHelp__Text"
+          >
+            MarketCube Vendor?
+             
+            <a
+              className="Polaris-Link"
+              data-polaris-unstyled={true}
+              href="/register"
+            >
+              Register here
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
