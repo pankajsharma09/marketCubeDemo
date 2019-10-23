@@ -110,28 +110,3 @@ describe('listing', () => {
     });
 })
 
-
-
-
-// describe('Vendor Listing', () => {
-
-//     // window.matchMedia = jest.fn().mockImplementation(query => {
-//     //     return {
-//     //       matches: f{alse},
-//     //       media: query,
-//     //       onchange: null,
-//     //       addListener: jest.fn(),
-//     //       removeListener: jest.fn(),
-//     //     };
-//     //   });
-//     const component = render.create(
-//             <MockedProvider mocks={mocks}>
-//                     <UserList/>
-//             </MockedProvider>
-//     );
-//     // it('render vendor listing', () => {
-//     //     const tree = component.toJSON();
-
-//     // });
-
-// });
