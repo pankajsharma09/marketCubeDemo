@@ -5,7 +5,7 @@ import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
 import PrivacyPolicy, { TermsUsed } from './modals';
 
-const RegisterMutation = gql`
+export const RegisterMutation = gql`
     mutation RegisterMutation($email: String,$password : String,$firstName : String,$lastName : String,$brandName:String){
 		addUser(email:$email,password:$password,firstName:$firstName,lastName:$lastName,brandName:$brandName){
 			email,
@@ -134,7 +134,7 @@ export default function RegisterForm() {
 		return true;
 	}
 
-	if (data) {
+	if (data && data.length) {
 		if (data.addUser.response !== userExist) {
 			setUserExist(data.addUser.response);
 			setBannerStatus('critical')
