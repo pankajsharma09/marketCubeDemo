@@ -41,7 +41,7 @@ export default function LoginForm() {
 		setBannerStatus('success');
 		localStorage.removeItem('registered');
 	}
-	if (data) {
+	if (data && data.length) {
 		if (data.userAuthenticate.response === 'INVALID' && data.userAuthenticate.response !== validUser) {
 			setValidUser(data.userAuthenticate.response);
 			setBannerStatus('critical')
@@ -68,12 +68,14 @@ export default function LoginForm() {
 									value={email}
 									onChange={handleEmailChange}
 									label="Username"
+									name="email"
 								/>
 								<TextField
 									value={password}
 									onChange={handlePasswordChange}
 									label="Password"
 									type="password"
+									name="password"
 								/>
 							</FormLayout>
 						</Card>
