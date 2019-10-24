@@ -1,0 +1,12 @@
+scalar Date
+type Product{
+  productName: String
+  productDesc: String
+  prodcutImageUrl: String
+  numberOfVariants: String
+  status: Int
+  createDate: Date
+  updateDate: Date
+  createBy: String
+  updateBy: String
+ }
