@@ -2,10 +2,13 @@ const { Query: userQuery,
     Mutation: UserMutation,
     Subscription: userSubscription
 } = require('./user');
+const { Query: productQuery 
+	} = require('./product');
 
 const resolvers = {
     Query: {
-        ...userQuery
+        ...userQuery,
+        ...productQuery
     },
     Mutation: {
         ...UserMutation
