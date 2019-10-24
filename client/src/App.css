@@ -20,3 +20,11 @@
 .App-link {
   color: #09d3ac;
 }
+
+.ProductListFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  border-top: 1px solid #dfe4e8; /* sky */
+}
