@@ -15,6 +15,7 @@ const LoginMutation = gql`
 
 export default function LoginForm() {
 	const [addUser, { loading, error, data }] = useMutation(LoginMutation);
+//	const addUser ={}, loading = {}, error = {}, data = {}
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [bannerStatus, setBannerStatus] = useState('critical');

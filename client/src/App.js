@@ -15,6 +15,7 @@ import "@shopify/polaris/styles.css";
 import Login from "./user/login"
 import Register from "./user/registration"
 import UserList from "./user/userList"
+import ProductList from "./product/productList"
 
 const httpLink = new HttpLink({
     uri: process.env.REACT_APP_APOLLO_GRAPHQL_URI,
@@ -78,7 +79,8 @@ function App(props) {
 						<Route path="/login" component={Login} />
 						<Route path="/register" component={Register} />
 						<Route path="/user-list" component={UserList} />
-					</Router>
+						<Route path="/product-list" component={ProductList} />
+						</Router>
 					<br />
 					<div style={{ textAlign: "center" }}>
 						<Caption>
