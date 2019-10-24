@@ -105,7 +105,6 @@ describe('listing', () => {
     
     it('render query', async () => {
         await wait(1000);
-        console.log('qwert',component.dive().dive().debug());
         expect(component).toMatchSnapshot();
     });
 })
