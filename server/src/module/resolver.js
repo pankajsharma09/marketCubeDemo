@@ -3,12 +3,16 @@ const { Query: userQuery,
     Subscription: userSubscription
 } = require('./user');
 const { Query: productQuery 
-	} = require('./product');
+    } = require('./product');
+
+const { Query: sellerQuery 
+	} = require('./seller');
 
 const resolvers = {
     Query: {
         ...userQuery,
-        ...productQuery
+        ...productQuery,
+        ...sellerQuery
     },
     Mutation: {
         ...UserMutation
