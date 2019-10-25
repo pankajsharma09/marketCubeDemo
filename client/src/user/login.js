@@ -23,16 +23,19 @@ export default function LoginForm() {
 	const [validUser, setValidUser] = useState('');
 
 	const handleSubmit = (e) => {
+		
 		if (email.trim() === '' || password.trim() === '') {
 			setBannerMessage('Both email and password is required');
 			setBannerStatus('critical')
 			return false;
 		}
-
+		
 		setValidUser('');
 		setBannerMessage('');
 		e.preventDefault();
+		console.log(email, password);
 		addUser({ variables: { email: email, password: password } });
+		
 	};
 	const handleEmailChange = (value) => setEmail(value);
 	const handlePasswordChange = (value) => setPassword(value);
@@ -42,18 +45,21 @@ export default function LoginForm() {
 		setBannerStatus('success');
 		localStorage.removeItem('registered');
 	}
-	if (data && data.length) {
+	
+	if (data) {
 		if (data.userAuthenticate.response === 'INVALID' && data.userAuthenticate.response !== validUser) {
 			setValidUser(data.userAuthenticate.response);
 			setBannerStatus('critical')
 			setBannerMessage(`${data.userAuthenticate.response} CREDENTIALS!`);
 		}
 		else if (data.userAuthenticate.response === 'VALID') {
+			
 			return (<Redirect to='/user-list' />)
 		}
 	}
 
 	return (
+			
 		<Page>
 			{bannerMessage ? <Banner title={bannerMessage} status={bannerStatus}></Banner> : ''}
 			<br />
