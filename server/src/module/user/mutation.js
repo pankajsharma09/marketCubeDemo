@@ -33,7 +33,7 @@ const Mutation = {
         try {
             
             const { email, password } = args;
-
+            console.log(email,password);
             let userDetail;
             if (email != '') {
                 userDetail = await User.find({ "email": email })
@@ -48,7 +48,7 @@ const Mutation = {
                     return { 'response': 'INVALID' }
                 }
             }
-
+console.log("valid");
             return { 'id': userDetail[0]._id, 'email': userDetail[0].email, 'response': 'VALID' }
         }
         catch (e) {

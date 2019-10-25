@@ -11,8 +11,22 @@ type User{
     updateDate: Date,
     status: Int
 }
+type Product{
+  productName: String
+  productDesc: String
+  prodcutImageUrl: String
+  numberOfVariants: String
+  status: Int
+  createDate: Date
+  updateDate: Date
+  createBy: String
+  updateBy: String
+ }
+ 
 type Query {
     getUsers : [User]
+    getProduct: [Product]
+    search: [Product]
 }
 
 type Mutation{
