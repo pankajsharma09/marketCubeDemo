@@ -26,7 +26,7 @@ type Product{
 type Query {
     getUsers : [User]
     getProduct: [Product]
-    search: [Product]
+    search(searchContent: String): [Product]
 }
 
 type Mutation{

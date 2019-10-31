@@ -4,8 +4,7 @@ const { ApolloServer,makeExecutableSchema} =  require('apollo-server-express');
 const {importSchema} = require('graphql-import');
 const configuration =require( './config/database');
 const schema = require('./index');
-
-const PORT = process.env.PORT || 9002;
+const PORT =  9000;
 
 const mongoose = require('./config/database');
 
