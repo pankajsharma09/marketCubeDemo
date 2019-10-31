@@ -80,6 +80,7 @@ function App(props) {
 						<Route path="/register" component={Register} />
 						<Route path="/user-list" component={UserList} />
 						<Route path="/product-list" component={ProductList} />
+							
 						</Router>
 					<br />
 					<div style={{ textAlign: "center" }}>

@@ -1,10 +1,12 @@
+import { Redirect } from 'react-router-dom'
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import React, { useCallback, useState } from 'react';
 import { gql } from 'apollo-boost';
 import Moment from 'react-moment';
-import { graphql, Query } from 'react-apollo';
+import { withApollo, graphql, Query } from 'react-apollo';
 import { Card, ResourceItem, ResourceList, Avatar, TextStyle, TextField, Filters, Page, Tabs, Layout, Link } from '@shopify/polaris';
-
-const GET_QUERY = gql`
+//GQL Query to get Product List
+var GET_QUERY = gql`
    query { getProduct{
     productName,
     productDesc,
@@ -19,10 +21,28 @@ const GET_QUERY = gql`
 }
 `;
 
+const GET_QUERY_SEARCH = gql`
+query ($searchContent: String){
+  search(searchContent: $searchContent)
+  {
+    productName,
+    productDesc,
+    prodcutImageUrl,
+    numberOfVariants,
+    status,
+    createDate,
+    updateDate,
+    createBy,
+    updateBy
+    
+  }
+}      
+`;
 
 
-
-function ProductList() {
+//Render to page
+function ProductList(props) {
+	const [items, setItems] = useState([]);
 	const [selectedItems, setSelectedItems] = useState([]);
     const [taggedWith, setTaggedWith] = useState(null);
     const [queryValue, setQueryValue] = useState(null);
@@ -32,21 +52,27 @@ function ProductList() {
     const handleTaggedWithChange = useCallback(
         (value) => {
         	setTaggedWith(value);
+        	
         },
         [],
     );
 
-    const handleQueryValueChange = useCallback(
-        (value) => {
-        	setQueryValue(value);
-        	
-        	
-        },
-        [],
-    );
+    const handleQueryValueChange = async (updatedValue) => {
+    	setQueryValue(updatedValue);
+    	
+    	const { data } = await props.client.query({
+    		query: GET_QUERY_SEARCH,
+    		variables: { searchContent: updatedValue }, 		
+    	});
+    
+		setItems(data.search);    		
+    }
 
     const handleTabChange = useCallback(
-        (selectedTabIndex) => setSelected(selectedTabIndex),
+        (selectedTabIndex) => {
+        	setSelected(selectedTabIndex);
+        	console.log("handleTabChange");
+        },
         [],
     );
 
@@ -212,7 +238,7 @@ function ProductList() {
             return value === '' || value == null;
         }
     }
-
+//    console.log("---this.props---", props.client);
     return (
 
         <Page breadcrumbs={[{ content: 'Login', url: '/login' }]} title="Product">
@@ -220,10 +246,12 @@ function ProductList() {
                 <Tabs tabs={headerTabs} fitted></Tabs>
             </div>
             <br></br>
-            <Query query={GET_QUERY}>
+            <Query query={GET_QUERY_SEARCH} >
                 {({ loading, error, data }) => {
-                	console.log(data);
                     if (loading) return <p>Loading...</p>;
+                    if(!queryValue) {
+                    	setItems(data.search);                    	
+                    }
                     if (error) return <p>Error : Something Went Wrong</p>;
 
                     return (
@@ -233,7 +261,7 @@ function ProductList() {
                                     <Tabs tabs={venderListTab} ></Tabs>
                                     <ResourceList
                                     resourceName={resourceName}
-                                    items={data.getProduct}
+                                    items={items}
                                     renderItem={renderItem}
                                     filterControl={filterControl}
                                     selectedItems={selectedItems}
@@ -263,6 +291,4 @@ function ProductList() {
     );
 }
 
-export default graphql(GET_QUERY, {
-    options: { fetchPolicy: 'network-only' },
-})(ProductList);
+export default withApollo(ProductList);
